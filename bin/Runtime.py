@@ -5,6 +5,7 @@ from PyQt5.QtGui import QDesktopServices
 from bin.Config import AppConfig as AC
 import os
 import json
+from bin.API import Handle
 
 
 class RunTiime():
@@ -14,6 +15,7 @@ class RunTiime():
 
     def buttons(self):
         # MENU
+        self.api = Handle("ok")
 
         self.btn_home.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.home_pg))
         self.btn_movie.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.movie_pg))
@@ -23,9 +25,13 @@ class RunTiime():
             lambda: QDesktopServices.openUrl(QUrl('https://github.com/upekshaip/movie-downloader')))
 
        
+        # Search BTN
+        self.btn_search.clicked.connect(lambda: self.api.search_movie(self.search_movie.text()))   
 
-        # logs search process
+        # show search icon
         self.search_movie.setPlaceholderText("Search...")
+        
+        
         # self.search_logs_box.textChanged.connect(
         #     lambda: search_logs(self, self.search_logs_box.text()))
         
