@@ -35,9 +35,11 @@ class RunTiime():
 
         # app.tableWidget
         app.tableWidget.setColumnWidth(0, 200)
-        app.tableWidget.setColumnWidth(2, 80)
+        app.tableWidget.setColumnWidth(2, 120)
         app.tableWidget.setColumnWidth(3, 120)
         app.tableWidget.setColumnWidth(4, 500)
+        app.tableWidget.setColumnWidth(5, 80)
+        app.tableWidget.setColumnWidth(6, 80)
         
         
         # self.search_logs_box.textChanged.connect(

@@ -1,6 +1,6 @@
 
 from PyQt5.QtWidgets import QTreeView, QAbstractItemView, QApplication, QTreeWidgetItem, QTableWidgetItem, QCheckBox
-from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox, QLabel
+from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox, QLabel, QPushButton, QVBoxLayout, QHBoxLayout
 from PyQt5.QtGui import QIcon
 from PyQt5.QtGui import QPixmap, QImage
 from PyQt5.QtCore import Qt
@@ -91,10 +91,33 @@ class Process:
 
             
             app.tableWidget.setItem(row, 1, QTableWidgetItem(str(movie["original_title"])))
-            app.tableWidget.setItem(row, 2, QTableWidgetItem(str(movie["vote_average"])))
+            app.tableWidget.setItem(row, 5, QTableWidgetItem(str(movie["vote_average"])))
             app.tableWidget.setItem(row, 3, QTableWidgetItem(str(movie["release_date"])))
             app.tableWidget.setItem(row, 4, QTableWidgetItem(str(movie["overview"])))
+            app.tableWidget.setItem(row, 6, QTableWidgetItem(str(movie["id"])))
+           
+
+            button = QPushButton("Watch")
+            button.setStyleSheet("text-align: center;")
+
+            button.setFixedSize(80, 40)
+            button.clicked.connect(lambda _, r=movie: self.movie_clicked(app, r))
+            
+            container = QWidget()
+            h_layout = QHBoxLayout(container)
+            v_layout = QVBoxLayout()
+            v_layout.addWidget(button)
+            h_layout.addLayout(v_layout)
+            container.setLayout(h_layout)
+            
+            app.tableWidget.setCellWidget(row, 2, container)
+
             row += 1
+
+    def movie_clicked(self, app, movie):
+        app.stackedWidget.setCurrentWidget(app.movie_pg)
+        print(f'Button in row {movie["id"]} clicked!')
+
 
     def insert_data_table(self, app, data):
         row = app.tableWidget.rowCount()
@@ -116,9 +139,26 @@ class Process:
                 poster = "Image not available"
                 app.tableWidget.setItem(row, 0, QTableWidgetItem(str(poster)))
             app.tableWidget.setItem(row, 1, QTableWidgetItem(str(movie["original_title"])))
-            app.tableWidget.setItem(row, 2, QTableWidgetItem(str(movie["vote_average"])))
+            app.tableWidget.setItem(row, 5, QTableWidgetItem(str(movie["vote_average"])))
             app.tableWidget.setItem(row, 3, QTableWidgetItem(str(movie["release_date"])))
             app.tableWidget.setItem(row, 4, QTableWidgetItem(str(movie["overview"])))
+            app.tableWidget.setItem(row, 6, QTableWidgetItem(str(movie["id"])))
+
+            button = QPushButton("Watch")
+            button.setStyleSheet("text-align: center;")
+
+            button.setFixedSize(80, 40)
+            button.clicked.connect(lambda _, r=movie: self.movie_clicked(r))
+            
+            container = QWidget()
+            h_layout = QHBoxLayout(container)
+            v_layout = QVBoxLayout()
+            v_layout.addWidget(button)
+            h_layout.addLayout(v_layout)
+            container.setLayout(h_layout)
+            
+            app.tableWidget.setCellWidget(row, 2, container)
+
             row += 1
 
         

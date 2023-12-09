@@ -75,7 +75,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="home_pg">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,5">
@@ -248,7 +248,7 @@
              </column>
              <column>
               <property name="text">
-               <string>Ratings</string>
+               <string>Action</string>
               </property>
              </column>
              <column>
@@ -261,6 +261,16 @@
                <string>Overview</string>
               </property>
              </column>
+             <column>
+              <property name="text">
+               <string>Ratings</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>ID</string>
+              </property>
+             </column>
             </widget>
            </item>
           </layout>
@@ -268,7 +278,61 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="movie_pg"/>
+      <widget class="QWidget" name="movie_pg">
+       <layout class="QVBoxLayout" name="verticalLayout_5" stretch="1,5">
+        <item>
+         <widget class="QFrame" name="frame_8">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <widget class="QLabel" name="label">
+           <property name="geometry">
+            <rect>
+             <x>20</x>
+             <y>30</y>
+             <width>251</width>
+             <height>51</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>16</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Movie Name</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_2">
+           <property name="geometry">
+            <rect>
+             <x>710</x>
+             <y>40</y>
+             <width>55</width>
+             <height>16</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>TextLabel</string>
+           </property>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="frame_9">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="downloader_pg"/>
       <widget class="QWidget" name="instructions_pg"/>
      </widget>
