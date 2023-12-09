@@ -6,30 +6,31 @@ from bin.Config import AppConfig as AC
 import os
 import json
 from bin.API import Handle
+from bin.Process import Process
 
 
 class RunTiime():
 
     def __init__(self):
-        pass
+        self.process = Process()
 
-    def buttons(self):
+    def buttons(self, app):
         # MENU
-        self.api = Handle("ok")
 
-        self.btn_home.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.home_pg))
-        self.btn_movie.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.movie_pg))
-        self.btn_downloader.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.downloader_pg))
-        self.btn_instructions.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.instructions_pg))
-        self.btn_github.clicked.connect(
+        app.btn_home.clicked.connect(lambda: app.stackedWidget.setCurrentWidget(app.home_pg))
+        app.btn_movie.clicked.connect(lambda: app.stackedWidget.setCurrentWidget(app.movie_pg))
+        app.btn_downloader.clicked.connect(lambda: app.stackedWidget.setCurrentWidget(app.downloader_pg))
+        app.btn_instructions.clicked.connect(lambda: app.stackedWidget.setCurrentWidget(app.instructions_pg))
+        app.btn_github.clicked.connect(
             lambda: QDesktopServices.openUrl(QUrl('https://github.com/upekshaip/movie-downloader')))
 
        
         # Search BTN
-        self.btn_search.clicked.connect(lambda: self.api.search_movie(self.search_movie.text()))   
+        app.btn_search.clicked.connect(lambda: self.process.handle_search(app, app.search_movie.text()))   
 
-        # show search icon
-        self.search_movie.setPlaceholderText("Search...")
+        # show search texts
+        app.search_movie.setPlaceholderText("Search...")
+        app.movie_count.setText("")
         
         
         # self.search_logs_box.textChanged.connect(

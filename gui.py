@@ -1,5 +1,5 @@
 import sys
-from bin.Runtime import RunTiime as rt
+from bin.Runtime import RunTiime as RT
 # pyqt
 from PyQt5.QtWidgets import QMainWindow, QApplication, QFileIconProvider, QDialog, QLineEdit, QTableWidgetItem, QLabel, QTreeWidgetItem
 from PyQt5.uic import loadUi
@@ -17,6 +17,7 @@ class MainUI(QMainWindow):
         loadUi("ux.ui", self)
         self.setWindowTitle('Movie Downloader')
         self.setWindowIcon(QIcon('logo.ico'))
+        rt = RT()
         rt.buttons(self)
 
 

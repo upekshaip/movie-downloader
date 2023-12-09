@@ -1,13 +1,10 @@
 import requests
-from bin.Process import Process
 from bin.Config import AppConfig as AC
 
 
 class Handle:
     def __init__(self, status):
         self.status = status
-        self.process = Process()
-
 
     def fix_queary(self, search_txt):
         return str(search_txt).replace(" ", "+")
@@ -24,7 +21,8 @@ class Handle:
             total_pages = data["total_pages"]
             total_results = data["total_results"]
             results = data["results"]
-            print(data)
+            return data
             
         else:
-            self.process.show_warning_popup()
+            print(f"network error: {res.status_code}")
+            return None
