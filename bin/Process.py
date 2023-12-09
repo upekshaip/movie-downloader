@@ -22,7 +22,7 @@ class Process:
         msg.exec_()
 
     def handle_search(self, app, search_txt):
-        data = self.api.search_movie(search_txt)
+        data = self.api.search_movie(search_txt, 1)
         
         if data:
             current_page = data["page"]
@@ -31,7 +31,10 @@ class Process:
             results = data["results"]
             
             app.movie_count.setText(f"Movie count: {total_results}\nMovie Pages: {total_pages}")
-            
+            app.load_pg_label.setText(f"1/{total_pages}")
+            if total_pages > 1:
+                app.load_next_btn.setEnabled(True)
+
             self.handle_table(app, results)
         
         else:
@@ -39,10 +42,36 @@ class Process:
             self.show_warning_popup()
     
 
+    def get_img(self, s, poster):
+        return s.get(poster).content
     
+    def handle_load(self, app, search_txt, pg):
+        pg = int(pg.split("/")[0]) + 1
+        max_pg = int(app.movie_count.text().split(" ")[-1])
+        if max_pg == pg:
+            app.load_next_btn.setEnabled(False)
+
+        print(pg)
+        
+        
+        data = self.api.search_movie(search_txt, pg)
+        if data:
+            current_page = data["page"]
+            total_pages = data["total_pages"]
+            total_results = data["total_results"]
+            results = data["results"]
+            app.movie_count.setText(f"Movie count: {total_results}\nMovie Pages: {total_pages}")
+            app.load_pg_label.setText(f"{current_page}/{total_pages}")
+
+            self.insert_data_table(app, results)
+        else:
+            print("data not availible")
+            self.show_warning_popup()
+
     def handle_table(self, app, data):
         row = 0
         app.tableWidget.setRowCount(len(data))
+        s = requests.Session()
         for movie in data:
             if movie['poster_path'] != None:
                 app.tableWidget.setRowHeight(row, 300)
@@ -50,7 +79,7 @@ class Process:
                 poster = f"{AC.POSTER_URL}{movie['poster_path']}"
 
                 image = QImage()
-                image.loadFromData(requests.get(poster).content)
+                image.loadFromData(self.get_img(s, poster))
 
                 image_label = QLabel()
                 image_label.setPixmap(QPixmap(image).scaled(300, 300, Qt.KeepAspectRatio, Qt.SmoothTransformation))
@@ -66,3 +95,30 @@ class Process:
             app.tableWidget.setItem(row, 3, QTableWidgetItem(str(movie["release_date"])))
             app.tableWidget.setItem(row, 4, QTableWidgetItem(str(movie["overview"])))
             row += 1
+
+    def insert_data_table(self, app, data):
+        row = app.tableWidget.rowCount()
+        s = requests.Session()
+        for movie in data:
+            app.tableWidget.insertRow(row)
+            if movie['poster_path'] != None:
+                app.tableWidget.setRowHeight(row, 300)
+                
+                poster = f"{AC.POSTER_URL}{movie['poster_path']}"
+
+                image = QImage()
+                image.loadFromData(self.get_img(s, poster))
+
+                image_label = QLabel()
+                image_label.setPixmap(QPixmap(image).scaled(300, 300, Qt.KeepAspectRatio, Qt.SmoothTransformation))
+                app.tableWidget.setCellWidget(row, 0, image_label)
+            else:
+                poster = "Image not available"
+                app.tableWidget.setItem(row, 0, QTableWidgetItem(str(poster)))
+            app.tableWidget.setItem(row, 1, QTableWidgetItem(str(movie["original_title"])))
+            app.tableWidget.setItem(row, 2, QTableWidgetItem(str(movie["vote_average"])))
+            app.tableWidget.setItem(row, 3, QTableWidgetItem(str(movie["release_date"])))
+            app.tableWidget.setItem(row, 4, QTableWidgetItem(str(movie["overview"])))
+            row += 1
+
+        

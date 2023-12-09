@@ -27,6 +27,7 @@ class RunTiime():
        
         # Search BTN
         app.btn_search.clicked.connect(lambda: self.process.handle_search(app, app.search_movie.text()))   
+        app.load_next_btn.clicked.connect(lambda: self.process.handle_load(app, app.search_movie.text(), app.load_pg_label.text()))   
 
         # show search texts
         app.search_movie.setPlaceholderText("Search...")

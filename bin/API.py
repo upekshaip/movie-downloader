@@ -9,9 +9,8 @@ class Handle:
     def fix_queary(self, search_txt):
         return str(search_txt).replace(" ", "+")
 
-    def search_movie(self, search_txt):
+    def search_movie(self, search_txt, page):
         query_text = self.fix_queary(search_txt)
-        page = 1
         url = f"https://api.themoviedb.org/3/search/movie?query={query_text}&include_adult=false&language=en-US&page={page}"
 
         res = requests.get(url, headers=AC.TMD_HEADERS_DEFAULT)

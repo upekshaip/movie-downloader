@@ -174,7 +174,7 @@
                 <property name="frameShadow">
                  <enum>QFrame::Raised</enum>
                 </property>
-                <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="2,1,2">
+                <layout class="QHBoxLayout" name="horizontalLayout_4">
                  <property name="spacing">
                   <number>4</number>
                  </property>
@@ -191,29 +191,25 @@
                   <number>0</number>
                  </property>
                  <item>
-                  <widget class="QPushButton" name="pre_btn">
+                  <widget class="QLabel" name="load_pg_label">
+                   <property name="layoutDirection">
+                    <enum>Qt::LeftToRight</enum>
+                   </property>
                    <property name="text">
-                    <string>Previous Page</string>
+                    <string/>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="page_view">
+                  <widget class="QPushButton" name="load_next_btn">
                    <property name="enabled">
                     <bool>false</bool>
                    </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>60</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="nxt_btn">
                    <property name="text">
-                    <string>Next Page</string>
+                    <string>Load Next Page</string>
                    </property>
                   </widget>
                  </item>
@@ -237,6 +233,9 @@
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <item>
             <widget class="QTableWidget" name="tableWidget">
+             <property name="showGrid">
+              <bool>true</bool>
+             </property>
              <column>
               <property name="text">
                <string>Poster</string>
