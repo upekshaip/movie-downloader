@@ -31,6 +31,12 @@ class RunTiime():
         # show search texts
         app.search_movie.setPlaceholderText("Search...")
         app.movie_count.setText("")
+
+        # app.tableWidget
+        app.tableWidget.setColumnWidth(0, 200)
+        app.tableWidget.setColumnWidth(2, 80)
+        app.tableWidget.setColumnWidth(3, 120)
+        app.tableWidget.setColumnWidth(4, 500)
         
         
         # self.search_logs_box.textChanged.connect(

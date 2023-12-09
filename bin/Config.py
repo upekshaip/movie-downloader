@@ -1,6 +1,7 @@
 class AppConfig(object):
     APP_VERSION = "1.0.0"
-    
+    # POSTER_URL = "https://image.tmdb.org/t/p/w300/fiVW06jE7z9YnO4trhaMEdclSiC.jpg"
+    POSTER_URL = "https://image.tmdb.org/t/p/w300"
     
     TMD_HEADERS_DEFAULT = {
     "Content-Type": "application/json",
