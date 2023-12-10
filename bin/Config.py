@@ -2,6 +2,11 @@ class AppConfig(object):
     APP_VERSION = "1.0.0"
     # POSTER_URL = "https://image.tmdb.org/t/p/w300/fiVW06jE7z9YnO4trhaMEdclSiC.jpg"
     POSTER_URL = "https://image.tmdb.org/t/p/w300"
+    MOVIE_INFO_URL = "https://api.themoviedb.org/3/movie/"
+
+    MOVIE_LINK1 = "https://vidsrc.to/embed/movie/"
+    MOVIE_LINK2 = "https://vidsrc.to/embed/movie/"
+    MOVIE_LINK3 = "https://themoviearchive.site/watch?tmdb="
     
     TMD_HEADERS_DEFAULT = {
     "Content-Type": "application/json",

@@ -1,9 +1,7 @@
-
 from PyQt5.QtWidgets import QTreeView, QAbstractItemView, QApplication, QTreeWidgetItem, QTableWidgetItem, QCheckBox
 from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox, QLabel, QPushButton, QVBoxLayout, QHBoxLayout
-from PyQt5.QtGui import QIcon
-from PyQt5.QtGui import QPixmap, QImage
-from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPixmap, QImage, QDesktopServices, QIcon
+from PyQt5.QtCore import Qt, QUrl
 from bin.API import Handle
 from bin.Config import AppConfig as AC
 import requests
@@ -116,11 +114,68 @@ class Process:
 
     def movie_clicked(self, app, movie):
         app.stackedWidget.setCurrentWidget(app.movie_pg)
-        app.movie_name.setText(movie["original_title"])
-        app.movie_year.setText(movie["release_date"].split("-")[0])
-        print(f'Button in row {movie["id"]} clicked!')
+        app.movie_name.setText(f'{movie["original_title"]} - {movie["release_date"].split("-")[0]}')
+        # app.movie_year.setText(movie["release_date"].split("-")[0])
+        # app.movie_poster
+        details, pic = self.get_movie_info(movie)
+        self.format_movie_info(app, movie, details)
+   
+
+        image = QImage()
+        image.loadFromData(pic)
+        app.movie_poster.setPixmap(QPixmap(image).scaled(400, 400, Qt.KeepAspectRatio, Qt.SmoothTransformation))
+        # print(f'Button in row {movie["id"]} clicked!')
 
 
+    def format_movie_info(self, app, movie, details):
+        genres = ""
+        for genre in details["genres"]:
+            genres += f'{genre["name"]}, '
+        
+        app.m_name.setText(f"{movie['original_title']}")
+        app.m_language.setText(f"{movie['original_language']}")
+        app.m_date.setText(f"{movie['release_date']}")
+        app.m_runtime.setText(f"{details['runtime']} min")
+        app.m_popularity.setText(f"{movie['popularity']}")
+        app.m_status.setText(f"{details['status']}")
+        app.m_genres.setText(f"{genres}")
+        app.m_imdb.setText(f"{details['imdb_id']}")
+        app.m_budget.setText(f"{details['budget']}")
+        app.m_overview.setText(f"{movie['overview']}")
+    
+        # buttons and inputs
+        LINK1 = f"{AC.MOVIE_LINK1}{movie['id']}"
+        LINK2 = f"{AC.MOVIE_LINK2}{details['imdb_id']}"
+        LINK3 = f"{AC.MOVIE_LINK3}{movie['id']}"
+
+        app.link1.setText(LINK1)
+        app.link2.setText(LINK2)
+        app.link3.setText(LINK3)
+
+        app.link1_open.clicked.connect(
+            lambda: QDesktopServices.openUrl(QUrl(LINK1)))
+        app.link2_open.clicked.connect(
+            lambda: QDesktopServices.openUrl(QUrl(LINK2)))
+        app.link3_open.clicked.connect(
+            lambda: QDesktopServices.openUrl(QUrl(LINK3)))
+        
+        app.link1_copy.clicked.connect(lambda: QApplication.clipboard().setText(LINK1))
+        app.link2_copy.clicked.connect(lambda: QApplication.clipboard().setText(LINK2))
+        app.link3_copy.clicked.connect(lambda: QApplication.clipboard().setText(LINK3))
+
+    
+    
+    def get_movie_info(self, movie):
+        INFO_URL = f"{AC.MOVIE_INFO_URL}{movie['id']}"
+        poster = f"{AC.POSTER_URL}{movie['poster_path']}"
+        
+        s = requests.Session()
+        details = s.get(INFO_URL, headers=AC.TMD_HEADERS_DEFAULT).json()
+        pic = self.get_img(s, poster)
+        return details, pic
+        
+
+    
     def insert_data_table(self, app, data):
         row = app.tableWidget.rowCount()
         s = requests.Session()
