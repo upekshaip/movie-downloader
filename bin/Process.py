@@ -116,6 +116,8 @@ class Process:
 
     def movie_clicked(self, app, movie):
         app.stackedWidget.setCurrentWidget(app.movie_pg)
+        app.movie_name.setText(movie["original_title"])
+        app.movie_year.setText(movie["release_date"].split("-")[0])
         print(f'Button in row {movie["id"]} clicked!')
 
 
@@ -148,7 +150,7 @@ class Process:
             button.setStyleSheet("text-align: center;")
 
             button.setFixedSize(80, 40)
-            button.clicked.connect(lambda _, r=movie: self.movie_clicked(r))
+            button.clicked.connect(lambda _, r=movie: self.movie_clicked(app, r))
             
             container = QWidget()
             h_layout = QHBoxLayout(container)
