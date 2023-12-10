@@ -29,9 +29,16 @@ class RunTiime():
         app.btn_search.clicked.connect(lambda: self.process.handle_search(app, app.search_movie.text()))   
         app.load_next_btn.clicked.connect(lambda: self.process.handle_load(app, app.search_movie.text(), app.load_pg_label.text()))   
 
+        # DOWNLOADER
+        app.download_btn.clicked.connect(lambda: self.process.handle_download(app, app.download_url.text()))   
+        
+
         # show search texts
         app.search_movie.setPlaceholderText("Search...")
+        app.download_url.setPlaceholderText("Enter the captured URL here")
+        
         app.movie_count.setText("")
+        app.progress_text.setText("")
 
         # app.tableWidget
         app.tableWidget.setColumnWidth(0, 200)

@@ -5,6 +5,9 @@ from PyQt5.QtCore import Qt, QUrl
 from bin.API import Handle
 from bin.Config import AppConfig as AC
 import requests
+import os
+from bin.Downloader import download
+import threading
 class Process:
     def __init__(self):
         self.api = Handle("ok")
@@ -218,4 +221,16 @@ class Process:
 
             row += 1
 
+    def handle_download(self, app, url):
+        if os.path.exists("./Movies"):
+            pass
+        else:
+            os.mkdir("./Movies")
+
+        download_thread = threading.Thread(target=download, args=(app, url))
+        download_thread.start()
+
+        # download(app, url)
+
+        
         
