@@ -54,7 +54,7 @@ class Process:
     def handle_load(self, app, search_txt, pg):
         pg = int(pg.split("/")[0]) + 1
         max_pg = int(app.movie_count.text().split(" ")[-1])
-        if max_pg == pg:
+        if max_pg <= pg:
             app.load_next_btn.setEnabled(False)
 
         print(pg)
@@ -226,19 +226,37 @@ class Process:
 
             row += 1
 
-    def handle_download(self, app, url):
+
+    def check_file_name(self, name):
+       
+        if all(c not in r'\/:*?"<>|' and ord(c) >= 32 for c in name):
+            return name
+        else:
+            return None
+
+    def handle_download(self, app, url, op_name):
+        app.download_btn.setEnabled(False)
+
         if os.path.exists("./Movies"):
             pass
         else:
             os.mkdir("./Movies")
+
+        op_name = str(op_name).strip()
+
+        if len(op_name) > 0 and self.check_file_name(op_name):
+            pass
+        else:
+            op_name = None
 
         if self.download_thread and self.download_thread.is_alive():
             print("Download is already in progress.")
             return
     
         self.download = DWN()
-        self.download_thread = threading.Thread(target=self.download.download, args=(app, url))
+        self.download_thread = threading.Thread(target=self.download.download, args=(app, url, op_name))
         self.download_thread.start()
+        
 
         # download(app, url)
     def closeEvent(self, event):

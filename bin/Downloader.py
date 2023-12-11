@@ -5,26 +5,11 @@ import math
 
 from PyQt5.QtCore import Qt, QMetaObject, Q_ARG
 
-# URLS = ['https://www.youtube.com/watch?v=BaW_jenozKc']
 
-class MyLogger:
-    def debug(self, msg):
-        # For compatibility with youtube-dl, both debug and info are passed into debug
-        # You can distinguish them by the prefix '[debug] '
-        if msg.startswith('[debug] '):
-            pass
-        else:
-            self.info(msg)
-
-    def info(self, msg):
-        pass
-
-    def warning(self, msg):
-        pass
-
-    def error(self, msg):
-        print(msg)
-
+def remove_color_codes(text_with_colors):
+    color_pattern = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
+    text_without_colors = color_pattern.sub('', text_with_colors)
+    return text_without_colors
 
 def extract(text_with_ansi):
     percentage_pattern = re.compile(r'(\d+(\.\d+)?)%')
@@ -36,32 +21,57 @@ def extract(text_with_ansi):
         print("No percentage found in the text.")
         return None
 
-# ℹ️ See "progress_hooks" in help(yt_dlp.YoutubeDL)
 
 class DWN:
     def __init__(self):
         self.signal = False
 
-    def download(self, app, URL):
+    def download(self, app, URL, name):
         def my_hook(d):
             value = extract(d['_percent_str'])
-            app.progressBar.setValue(value)
+            # app.progressBar.setValue(value)
             # print(d['_percent_str'])
             QMetaObject.invokeMethod(app.progressBar, "setValue", Qt.QueuedConnection | Qt.UniqueConnection, Q_ARG(int, value))
 
             # QMetaObject.invokeMethod(app.progressBar, "setValue", Qt.QueuedConnection, value)
             if d['status'] == 'finished':
-                print('Done downloading, now post-processing ...')
+                QMetaObject.invokeMethod(app.progress_text, "setText", Qt.QueuedConnection | Qt.UniqueConnection, Q_ARG(str, f"Done downloading, now post-processing ..."))
         
+
+        if name:
+            out_name = name
+            # app.info_label.setText(f"File name saved as: {out_name}")
+            QMetaObject.invokeMethod(app.info_label, "setText", Qt.QueuedConnection | Qt.UniqueConnection, Q_ARG(str, f"File name saved as: {out_name}"))
+        else:
+            out_name = "%(title)s"
+            # app.info_label.setText(f"File name saved as: Defaul name")
+            QMetaObject.invokeMethod(app.info_label, "setText", Qt.QueuedConnection | Qt.UniqueConnection, Q_ARG(str, f"File name saved as: Defaul name"))
+        
+
+        class MyLogger:
+            def debug(self, msg):
+                if msg.startswith('[debug] '):
+                    pass
+                else:
+                    self.info(msg)
+
+            def info(self, msg):
+                QMetaObject.invokeMethod(app.progress_text, "setText", Qt.QueuedConnection | Qt.UniqueConnection, Q_ARG(str, f"{remove_color_codes(msg)}"))
+
+            def warning(self, msg):
+                QMetaObject.invokeMethod(app.progress_text, "setText", Qt.QueuedConnection | Qt.UniqueConnection, Q_ARG(str, f"{remove_color_codes(msg)}"))
+
+            def error(self, msg):
+                QMetaObject.invokeMethod(app.progress_text, "setText", Qt.QueuedConnection | Qt.UniqueConnection, Q_ARG(str, f"{remove_color_codes(msg)}"))
+
         ydl_opts = {
             'logger': MyLogger(),
             'progress_hooks': [my_hook],
-            'outtmpl': "Movies" + "/%(title)s.%(ext)s"
+            'outtmpl': "Movies" + f"/{out_name}.%(ext)s"
         }
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            
-            if self.signal:
-                # ydl.stop_download()
-                pass
             ydl.download([URL])
+
+            QMetaObject.invokeMethod(app.progress_text, "setText", Qt.QueuedConnection | Qt.UniqueConnection, Q_ARG(str, f"Task finished"))
+            QMetaObject.invokeMethod(app.download_btn, "setEnabled", Qt.QueuedConnection | Qt.UniqueConnection, Q_ARG(bool, True))
 

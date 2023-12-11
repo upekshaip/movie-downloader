@@ -22,7 +22,7 @@ class RunTiime():
         app.btn_downloader.clicked.connect(lambda: app.stackedWidget.setCurrentWidget(app.downloader_pg))
         app.btn_instructions.clicked.connect(lambda: app.stackedWidget.setCurrentWidget(app.instructions_pg))
         app.btn_github.clicked.connect(
-            lambda: QDesktopServices.openUrl(QUrl('https://github.com/upekshaip/movie-downloader')))
+            lambda: QDesktopServices.openUrl(QUrl(AC.GITHUB_URL)))
 
        
         # Search BTN
@@ -30,12 +30,13 @@ class RunTiime():
         app.load_next_btn.clicked.connect(lambda: self.process.handle_load(app, app.search_movie.text(), app.load_pg_label.text()))   
 
         # DOWNLOADER
-        app.download_btn.clicked.connect(lambda: self.process.handle_download(app, app.download_url.text()))   
+        app.download_btn.clicked.connect(lambda: self.process.handle_download(app, app.download_url.text(), app.movie_name_save.text()))   
         
 
         # show search texts
         app.search_movie.setPlaceholderText("Search...")
         app.download_url.setPlaceholderText("Enter the captured URL here")
+        app.movie_name_save.setPlaceholderText("Enter the name you want to save")
         
         app.movie_count.setText("")
         app.progress_text.setText("")
