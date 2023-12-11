@@ -237,8 +237,6 @@ class Process:
             return None
 
     def handle_download(self, app, url, op_name):
-        app.download_btn.setEnabled(False)
-
         if os.path.exists("./Movies"):
             pass
         else:
@@ -254,10 +252,11 @@ class Process:
         if self.download_thread and self.download_thread.is_alive():
             print("Download is already in progress.")
             return
-    
-        self.download = DWN()
-        self.download_thread = threading.Thread(target=self.download.download, args=(app, url, op_name))
-        self.download_thread.start()
+        if len(url) > 0:
+            app.download_btn.setEnabled(False)
+            self.download = DWN()
+            self.download_thread = threading.Thread(target=self.download.download, args=(app, url, op_name))
+            self.download_thread.start()
         
 
         # download(app, url)

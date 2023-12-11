@@ -57,6 +57,7 @@ class DWN:
                 QMetaObject.invokeMethod(app.progress_text, "setText", Qt.QueuedConnection | Qt.UniqueConnection, Q_ARG(str, f"{remove_color_codes(msg)}"))
 
             def error(self, msg):
+                QMetaObject.invokeMethod(app.download_btn, "setEnabled", Qt.QueuedConnection | Qt.UniqueConnection, Q_ARG(bool, True))
                 QMetaObject.invokeMethod(app.progress_text, "setText", Qt.QueuedConnection | Qt.UniqueConnection, Q_ARG(str, f"{remove_color_codes(msg)}"))
 
         ydl_opts = {
