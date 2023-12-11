@@ -29,22 +29,17 @@ class DWN:
     def download(self, app, URL, name):
         def my_hook(d):
             value = extract(d['_percent_str'])
-            # app.progressBar.setValue(value)
-            # print(d['_percent_str'])
             QMetaObject.invokeMethod(app.progressBar, "setValue", Qt.QueuedConnection | Qt.UniqueConnection, Q_ARG(int, value))
 
-            # QMetaObject.invokeMethod(app.progressBar, "setValue", Qt.QueuedConnection, value)
             if d['status'] == 'finished':
                 QMetaObject.invokeMethod(app.progress_text, "setText", Qt.QueuedConnection | Qt.UniqueConnection, Q_ARG(str, f"Done downloading, now post-processing ..."))
         
 
         if name:
             out_name = name
-            # app.info_label.setText(f"File name saved as: {out_name}")
             QMetaObject.invokeMethod(app.info_label, "setText", Qt.QueuedConnection | Qt.UniqueConnection, Q_ARG(str, f"File name saved as: {out_name}"))
         else:
             out_name = "%(title)s"
-            # app.info_label.setText(f"File name saved as: Defaul name")
             QMetaObject.invokeMethod(app.info_label, "setText", Qt.QueuedConnection | Qt.UniqueConnection, Q_ARG(str, f"File name saved as: Defaul name"))
         
 

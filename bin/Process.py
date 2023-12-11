@@ -45,7 +45,7 @@ class Process:
         
         else:
             print("data not availible")
-            self.show_warning_popup()
+            self.show_warning_popup("Check your network connection! Internet error!", "Check internet connection!")
     
 
     def get_img(self, s, poster):
@@ -72,7 +72,7 @@ class Process:
             self.insert_data_table(app, results)
         else:
             print("data not availible")
-            self.show_warning_popup()
+            self.show_warning_popup("Check your network connection! Internet error!", "Check internet connection!")
 
     def handle_table(self, app, data):
         row = 0
@@ -123,17 +123,15 @@ class Process:
     def movie_clicked(self, app, movie):
         app.stackedWidget.setCurrentWidget(app.movie_pg)
         app.movie_name.setText(f'{movie["original_title"]} - {movie["release_date"].split("-")[0]}')
-        # app.movie_year.setText(movie["release_date"].split("-")[0])
-        # app.movie_poster
+        
         details, pic = self.get_movie_info(movie)
-        self.format_movie_info(app, movie, details)
-   
-
-        image = QImage()
-        image.loadFromData(pic)
-        app.movie_poster.setPixmap(QPixmap(image).scaled(400, 400, Qt.KeepAspectRatio, Qt.SmoothTransformation))
-        # print(f'Button in row {movie["id"]} clicked!')
-
+        if details is not None and pic is not None:
+            self.format_movie_info(app, movie, details)
+            image = QImage()
+            image.loadFromData(pic)
+            app.movie_poster.setPixmap(QPixmap(image).scaled(400, 400, Qt.KeepAspectRatio, Qt.SmoothTransformation))
+        else:
+            self.show_warning_popup("Check your network connection! Internet error!", "Check internet connection!")
 
     def format_movie_info(self, app, movie, details):
         genres = ""
@@ -176,12 +174,16 @@ class Process:
     def get_movie_info(self, movie):
         INFO_URL = f"{AC.MOVIE_INFO_URL}{movie['id']}"
         poster = f"{AC.POSTER_URL}{movie['poster_path']}"
-        
-        s = requests.Session()
-        details = s.get(INFO_URL, headers=AC.TMD_HEADERS_DEFAULT).json()
-        pic = self.get_img(s, poster)
-        return details, pic
-        
+        try:
+            s = requests.Session()
+            details = s.get(INFO_URL, headers=AC.TMD_HEADERS_DEFAULT).json()
+            if details:
+                pic = self.get_img(s, poster)
+                return details, pic
+            else:
+                return None, None
+        except:
+            return None, None
 
     
     def insert_data_table(self, app, data):
