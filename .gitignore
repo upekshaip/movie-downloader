@@ -3,3 +3,5 @@ __pycache__
 Movies
 *.json
 tests
+App
+output
