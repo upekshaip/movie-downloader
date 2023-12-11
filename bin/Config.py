@@ -7,6 +7,7 @@ class AppConfig(object):
     MOVIE_LINK1 = "https://vidsrc.to/embed/movie/"
     MOVIE_LINK2 = "https://vidsrc.to/embed/movie/"
     MOVIE_LINK3 = "https://themoviearchive.site/watch?tmdb="
+    MOVIE_LINK4 = "https://vidsrc.xyz/embed/movie?imdb="
     
     TMD_HEADERS_DEFAULT = {
     "Content-Type": "application/json",
