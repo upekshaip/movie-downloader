@@ -1,16 +1,21 @@
 from PyQt5.QtWidgets import QTreeView, QAbstractItemView, QApplication, QTreeWidgetItem, QTableWidgetItem, QCheckBox
 from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox, QLabel, QPushButton, QVBoxLayout, QHBoxLayout
 from PyQt5.QtGui import QPixmap, QImage, QDesktopServices, QIcon
-from PyQt5.QtCore import Qt, QUrl
+from PyQt5.QtCore import Qt, QUrl, pyqtSignal
 from bin.API import Handle
 from bin.Config import AppConfig as AC
 import requests
 import os
-from bin.Downloader import download
+from bin.Downloader import DWN
 import threading
+
+
+
 class Process:
+    SIGNAL = False
     def __init__(self):
         self.api = Handle("ok")
+        self.download_thread = None
 
     def show_warning_popup(self, message, warn):
         # create a message box with the warning message and an "OK" button to dismiss the popup
@@ -227,10 +232,17 @@ class Process:
         else:
             os.mkdir("./Movies")
 
-        download_thread = threading.Thread(target=download, args=(app, url))
-        download_thread.start()
+        if self.download_thread and self.download_thread.is_alive():
+            print("Download is already in progress.")
+            return
+    
+        self.download = DWN()
+        self.download_thread = threading.Thread(target=self.download.download, args=(app, url))
+        self.download_thread.start()
 
         # download(app, url)
-
-        
-        
+    def closeEvent(self, event):
+        if self.download_thread and self.download_thread.is_alive():
+            print("Stopping download manually...")
+            # Crash the app and threads
+            print(1/0)

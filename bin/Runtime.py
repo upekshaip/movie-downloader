@@ -48,7 +48,8 @@ class RunTiime():
         app.tableWidget.setColumnWidth(5, 80)
         app.tableWidget.setColumnWidth(6, 80)
         
-        
+        # Close event
+        app.closeEvent = self.process.closeEvent
         # self.search_logs_box.textChanged.connect(
         #     lambda: search_logs(self, self.search_logs_box.text()))
         
