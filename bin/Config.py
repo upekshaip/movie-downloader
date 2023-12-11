@@ -14,3 +14,6 @@ class AppConfig(object):
     }
 
     GITHUB_URL = "https://github.com/upekshaip/movie-downloader"
+
+    INSTRUCTIONS = """Hello there
+add all the instructions here"""

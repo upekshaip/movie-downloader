@@ -37,6 +37,8 @@ class RunTiime():
         app.search_movie.setPlaceholderText("Search...")
         app.download_url.setPlaceholderText("Enter the captured URL here")
         app.movie_name_save.setPlaceholderText("Enter the name you want to save")
+
+        app.instructions_text.setText(AC.INSTRUCTIONS)
         
         app.movie_count.setText("")
         app.progress_text.setText("")
