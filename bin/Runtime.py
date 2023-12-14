@@ -1,11 +1,8 @@
 # from bin.Process.Tasks import refresh_local_process, refresh_nlearn, download_files, clear_all_logs, select_all_slots, log_out, log_in, show_log_table, search_logs, ignore_process
 from PyQt5.QtWidgets import QMainWindow, QApplication, QTextEdit, QFileIconProvider, QDialog, QLineEdit, QTableWidgetItem, QLabel, QTreeWidgetItem
-from PyQt5.QtCore import QUrl
-from PyQt5.QtGui import QDesktopServices
+from PyQt5.QtCore import QUrl, Qt
+from PyQt5.QtGui import QDesktopServices, QPixmap
 from bin.Config import AppConfig as AC
-import os
-import json
-from bin.API import Handle
 from bin.Process import Process
 
 
@@ -53,6 +50,26 @@ class RunTiime():
         
         # Close event
         app.closeEvent = self.process.closeEvent
+
+        pixmap = QPixmap("logo.ico")
+
+        # Set the pixmap to the QLabel
+        app.logo.setPixmap(pixmap)
+
+        # Adjust the size of the QLabel to fit the image
+        image_path = "logo.ico"
+        pixmap = QPixmap(image_path)
+        app.logo.setPixmap(pixmap.scaled(150, 150, Qt.KeepAspectRatio, Qt.SmoothTransformation))
+        # app.logo.setFixedSize(300, 300)
+
+        # Create a QLabel and set the pixmap
+
+        # Optional: Set the size of the QLabel
+
+        # Optional: Adjust the widget size based on QLabel size
+
+
+
         # self.search_logs_box.textChanged.connect(
         #     lambda: search_logs(self, self.search_logs_box.text()))
         

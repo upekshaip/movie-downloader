@@ -51,7 +51,7 @@ background-color: #21262d;
 
 QLineEdit {
 background-color: #161b22;
-color: #8b949e;
+color: #c9d1d9;
 border-radius: 5px;
 border: 1px solid #484f58;
 }
@@ -110,6 +110,27 @@ QProgressBar {
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
+         <layout class="QVBoxLayout" name="verticalLayout_13">
+          <item>
+           <widget class="QLabel" name="logo">
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
        <item>
@@ -153,7 +174,7 @@ QProgressBar {
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="home_pg">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,5">
@@ -443,7 +464,7 @@ QProgressBar {
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,1">
               <property name="spacing">
-               <number>2</number>
+               <number>4</number>
               </property>
               <property name="leftMargin">
                <number>0</number>
@@ -688,7 +709,14 @@ QProgressBar {
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="link1"/>
+                  <widget class="QLineEdit" name="link1">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                  </widget>
                  </item>
                  <item>
                   <widget class="QPushButton" name="link1_copy">
@@ -724,7 +752,14 @@ QProgressBar {
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="link2"/>
+                  <widget class="QLineEdit" name="link2">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                  </widget>
                  </item>
                  <item>
                   <widget class="QPushButton" name="link2_copy">
@@ -760,7 +795,14 @@ QProgressBar {
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="link3"/>
+                  <widget class="QLineEdit" name="link3">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                  </widget>
                  </item>
                  <item>
                   <widget class="QPushButton" name="link3_copy">
@@ -827,7 +869,14 @@ QProgressBar {
                   </widget>
                  </item>
                  <item row="0" column="1">
-                  <widget class="QLineEdit" name="movie_name_save"/>
+                  <widget class="QLineEdit" name="movie_name_save">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                  </widget>
                  </item>
                  <item row="1" column="0">
                   <widget class="QLabel" name="label_18">
@@ -837,7 +886,14 @@ QProgressBar {
                   </widget>
                  </item>
                  <item row="1" column="1">
-                  <widget class="QLineEdit" name="download_url"/>
+                  <widget class="QLineEdit" name="download_url">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                  </widget>
                  </item>
                  <item row="2" column="0" colspan="2">
                   <widget class="QPushButton" name="download_btn">
