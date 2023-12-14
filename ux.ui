@@ -6,14 +6,92 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>965</width>
+    <width>923</width>
     <height>709</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">#MainWindow {
+background-color: #30363d;
+}
+
+QMainWindow::titleBar {
+    background-color: #0d1117; /* Set your desired background color */
+}
+
+#centralwidget{
+background-color: black;
+color: white;
+}
+
+QLabel {
+color: white;
+}
+
+QPushButton{
+background-color: #30363d;
+color: white;
+font-size: 14px;
+padding: 5px;
+margin: 3px 0px;
+border-radius: 5px;
+border: 1px solid #484f58;
+
+}
+QPushButton:hover {
+background-color: #6e7681
+}
+
+#home_pg, #movie_pg, #downloader_pg, #instructions_pg {
+background-color: #21262d;
+}
+
+QLineEdit {
+background-color: #161b22;
+color: #8b949e;
+border-radius: 5px;
+border: 1px solid #484f58;
+}
+
+QTableWidget {
+background-color: #0d1117;
+color: white;
+}
+
+QHeaderView::section {
+    background-color: #21262d;
+    color: white;
+}
+
+QScrollBar:horizontal {
+    background: #0d1117; /* Set your desired background color */
+    height: 15px;
+    border: 0px solid black; /* Set the border color if needed */
+    margin: 0px 0px 0px 0px;
+}
+QScrollBar:vertical {
+    border: 1px solid black;
+    background: #0d1117;
+    width: 15px;
+    margin: 0px 0px 0px 0px;
+}
+
+QProgressBar {
+	background-color: #0d1117;
+    border: 1px solid #484f58; /* Set border color if needed */
+    color: white; /* Set text color if needed */
+	text-align: center;
+}
+
+</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,4">
     <item>
      <widget class="QFrame" name="frame">
@@ -25,7 +103,7 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QFrame" name="frame_2">
+        <widget class="QFrame" name="logo_frame">
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
          </property>
@@ -75,7 +153,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="home_pg">
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,5">
@@ -807,6 +885,9 @@
              <layout class="QVBoxLayout" name="verticalLayout_9">
               <item>
                <widget class="QProgressBar" name="progressBar">
+                <property name="layoutDirection">
+                 <enum>Qt::LeftToRight</enum>
+                </property>
                 <property name="value">
                  <number>0</number>
                 </property>
@@ -915,7 +996,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>965</width>
+     <width>923</width>
      <height>26</height>
     </rect>
    </property>

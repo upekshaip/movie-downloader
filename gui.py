@@ -1,14 +1,10 @@
 import sys
 from bin.Runtime import RunTiime as RT
 # pyqt
-from PyQt5.QtWidgets import QMainWindow, QApplication, QFileIconProvider, QDialog, QLineEdit, QTableWidgetItem, QLabel, QTreeWidgetItem
+from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5.uic import loadUi
-from PyQt5 import QtWidgets
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-# from bin.Config.config import FDB
-# idk btw
-
 
 class MainUI(QMainWindow):
 
