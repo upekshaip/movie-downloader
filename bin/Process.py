@@ -150,7 +150,7 @@ class Process:
         app.m_overview.setText(f"{movie['overview']}")
     
         # buttons and inputs
-        LINK1 = f"{AC.MOVIE_LINK1}{movie['id']}"
+        LINK1 = f"{AC.MOVIE_LINK1}{details['imdb_id']}"
         LINK2 = f"{AC.MOVIE_LINK2}{details['imdb_id']}"
         LINK3 = f"{AC.MOVIE_LINK3}{movie['id']}"
 

@@ -4,7 +4,7 @@ class AppConfig(object):
     POSTER_URL = "https://image.tmdb.org/t/p/w300"
     MOVIE_INFO_URL = "https://api.themoviedb.org/3/movie/"
 
-    MOVIE_LINK1 = "https://vidsrc.to/embed/movie/"
+    MOVIE_LINK1 = "https://vidsrc.xyz/embed/movie?imdb="
     MOVIE_LINK2 = "https://vidsrc.to/embed/movie/"
     MOVIE_LINK3 = "https://themoviearchive.site/watch?tmdb="
     MOVIE_LINK4 = "https://vidsrc.xyz/embed/movie?imdb="
