@@ -59,7 +59,7 @@ class RunTiime():
         # Adjust the size of the QLabel to fit the image
         image_path = "logo.ico"
         pixmap = QPixmap(image_path)
-        app.logo.setPixmap(pixmap.scaled(150, 150, Qt.KeepAspectRatio, Qt.SmoothTransformation))
+        app.logo.setPixmap(pixmap.scaled(200, 200, Qt.KeepAspectRatio, Qt.SmoothTransformation))
         # app.logo.setFixedSize(300, 300)
 
         # Create a QLabel and set the pixmap
